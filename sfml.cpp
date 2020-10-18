@@ -15,7 +15,7 @@ public:
     ParticleSystem(unsigned int count) :
     m_particles(count),
     m_vertices(sf::Points, count),
-    m_lifetime(sf::seconds(3.f)),
+    m_lifetime(sf::seconds(2.f)),
     m_emitter(0.f, 0.f)
     {
     }
@@ -41,7 +41,7 @@ public:
             m_vertices[i].color.r = static_cast<sf::Uint8>(randomInt1);
             m_vertices[i].color.g = static_cast<sf::Uint8>(randomInt2);
             m_vertices[i].color.b = static_cast<sf::Uint8>(randomInt3);
-            m_vertices[i].color.a = static_cast<sf::Uint8>(ratio * 255);
+            m_vertices[i].color.a = static_cast<sf::Uint8>(ratio *255);
         }
     }
 
@@ -84,14 +84,13 @@ sf::Vector2f randomPoints() {
 int main()
 {
 
-    sf::RenderWindow window(sf::VideoMode(ScreenHeigth, ScreenWeight), "Particles");
+    sf::RenderWindow window(sf::VideoMode(ScreenHeigth, ScreenWeight), "FireWorks");
     ParticleSystem particles(50000);
 
     sf::Clock clock;
     sf::Clock newFirework;
     sf::Vector2f points[FireworksAmount];
-    int random1 = 125, random2 = 0, random3 = 255;
-
+    int random1 = 0, random2 = 0, random3 = 0;
     // run the main loop
     while (window.isOpen())
     {
@@ -118,7 +117,8 @@ int main()
         	newFirework.restart();
         }
 
-        for (int i = 0; i < FireworksAmount; i++) {
+        //Rand for different power of fireworks
+        for (int i = 0; i < rand() % 5 + 1; i++) {
 			particles.setEmitter(points[i]);
 			sf::Time elapsed = clock.restart();
 			particles.update(elapsed, random1, random2, random3);
